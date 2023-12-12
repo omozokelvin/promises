@@ -1,6 +1,6 @@
-// in parallel using Promise.allSettled
+const { todoIds, todosUrl } = require('./_common/constants');
 
-const { todoIds, todosUrl } = require('./constants');
+// Fetching todos in parallel using Promise.all
 
 const getTodos = async () => {
   const startTime = new Date();
@@ -9,23 +9,13 @@ const getTodos = async () => {
     fetch(`${todosUrl}/${id}`).then((response) => response.json())
   );
 
-  const responses = await Promise.allSettled(promises$);
-
-  const todos = [];
-  for (const response of responses) {
-    if (response.status === 'rejected') {
-      console.log(response.reason);
-      continue;
-    }
-
-    todos.push(response.value);
-  }
+  const todo = await Promise.race(promises$);
 
   const endTime = new Date();
   const timeElapsed = endTime - startTime;
 
   return {
-    todos,
+    todo,
     timeElapsed: 'Time taken to fetch data: ' + timeElapsed + 'ms',
   };
 };

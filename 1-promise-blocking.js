@@ -1,14 +1,17 @@
-const { todoIds, todosUrl } = require('./constants');
+const { todoIds, todosUrl } = require('./_common/constants');
 
-// in parallel using Promise.all
+// Using async/await - blocking
 const getTodos = async () => {
   const startTime = new Date();
 
-  const promises$ = todoIds.map((id) =>
-    fetch(`${todosUrl}/${id}`).then((response) => response.json())
-  );
+  const todos = [];
+  for (const id of todoIds) {
+    const todo = await fetch(`${todosUrl}/${id}`).then((response) =>
+      response.json()
+    );
 
-  const todos = await Promise.all(promises$);
+    todos.push(todo);
+  }
 
   const endTime = new Date();
   const timeElapsed = endTime - startTime;
