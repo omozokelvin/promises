@@ -1,4 +1,5 @@
 // workerData is a special object that is passed to the worker thread. It is accessible in the worker thread as well as the parent thread.
+
 // parentPort is a special object that is accessible in the worker thread. It is used to communicate with the parent thread.
 const { workerData, parentPort } = require('worker_threads');
 const { todosUrl } = require('./_common/constants');

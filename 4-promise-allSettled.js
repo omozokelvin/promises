@@ -26,7 +26,7 @@ const getTodos = async () => {
 
   return {
     todos,
-    timeElapsed: 'Time taken to fetch data: ' + timeElapsed + 'ms',
+    timeElapsed: `Time taken to fetch data: ${timeElapsed} ms`,
   };
 };
 
